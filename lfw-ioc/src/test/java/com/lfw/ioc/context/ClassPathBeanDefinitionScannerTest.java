@@ -8,11 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /*
  * @Author Zzs
@@ -32,7 +29,7 @@ class ClassPathBeanDefinitionScannerTest {
 	@Test
 	public void recursivelyScanTest () throws Exception {
 		classPathBeanDefinitionScanner = new ClassPathBeanDefinitionScanner("com.lfw.ioc");
-		List<?> list = classPathBeanDefinitionScanner.addAllAnnotatedClasses();
+		List<?> list = classPathBeanDefinitionScanner.getAllAnnotatedClasses();
 		System.out.println(list);
 	}
 	
@@ -89,7 +86,7 @@ class ClassPathBeanDefinitionScannerTest {
 		System.out.println();
 		// get annotated classes
 		classPathBeanDefinitionScanner = new ClassPathBeanDefinitionScanner("com.lfw.ioc");
-		List<Class<?>> list = classPathBeanDefinitionScanner.addAllAnnotatedClasses();
+		List<Class<?>> list = classPathBeanDefinitionScanner.getAllAnnotatedClasses();
 		System.out.println(list.size());
 	}
 	

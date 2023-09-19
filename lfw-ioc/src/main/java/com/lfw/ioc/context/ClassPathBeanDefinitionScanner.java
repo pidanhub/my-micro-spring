@@ -54,7 +54,7 @@ public class ClassPathBeanDefinitionScanner {
 		this.beanClasses = beanClasses;
 	}
 	
-	public List<Class<?>> addAllAnnotatedClasses () throws IOException {
+	public List<Class<?>> getAllAnnotatedClasses () throws IOException {
 		this.recursivelyScan();
 		List<Class<?>> values = BeanAnnotationEnum.getValues();
 		List<Class<?>> needAddClasses = new ArrayList<>();
