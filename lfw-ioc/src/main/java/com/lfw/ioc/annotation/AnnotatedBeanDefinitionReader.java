@@ -8,7 +8,14 @@ package com.lfw.ioc.annotation;
 
 import com.lfw.ioc.context.BeanDefinitionReader;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
 public class AnnotatedBeanDefinitionReader implements BeanDefinitionReader {
-
+	
+	@Override
+	public void reading (List<Class<?>> toBeLoading) {
+	
+	}
+	
 }

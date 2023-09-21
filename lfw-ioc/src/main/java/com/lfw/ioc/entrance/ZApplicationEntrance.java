@@ -1,7 +1,9 @@
 package com.lfw.ioc.entrance;
 
+import com.lfw.ioc.annotation.AnnotatedBeanDefinitionReader;
 import com.lfw.ioc.annotation.ZApplication;
 import com.lfw.ioc.annotation.ZComponentScan;
+import com.lfw.ioc.context.BeanDefinitionReader;
 import com.lfw.ioc.context.ClassPathBeanDefinitionScanner;
 import com.lfw.ioc.exception.NotZApplicationAppException;
 import com.lfw.ioc.factory.AnnotationApplicationContext;
@@ -16,7 +18,7 @@ import java.util.*;
  * @Description
  * @DateTime 2023/9/15 16:43
  */
-@SuppressWarnings({ "unused", "MismatchedQueryAndUpdateOfCollection" })
+@SuppressWarnings({ "unused", "MismatchedQueryAndUpdateOfCollection", "FieldCanBeLocal" })
 public class ZApplicationEntrance {
 	
 	// TODO Q: 是否要将入口都放在这里？
@@ -50,15 +52,16 @@ public class ZApplicationEntrance {
 			// 从这里看，ClassPathBeanDefinitionScanner需要返回并且将BeanFactory处理得当，也要兼容其他框架带来的bean工厂，拓展性很重要
 			// TODO 如何拓展？？
 			// 其他注解委托到Mybatis框架的ProxyFactory？？
-			ZComponentScan zComponentScan = clazz.getAnnotation(ZComponentScan.class);
-			doUploadContainer(zComponentScan);
-			
+			// 确认了是框架托管的程序以后，按照扫描包规则进行扫描
+			doUploadContainer(starters[0]);
 		} catch (NotZApplicationAppException | IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void doUploadContainer (ZComponentScan zComponentScan) throws IOException {
+	private List<Class<?>> toBeLoading;
+	private void doUploadContainer (Class<?> clazz) throws IOException {
+		ZComponentScan zComponentScan = clazz.getAnnotation(ZComponentScan.class);
 		ClassPathBeanDefinitionScanner classPathBeanDefinitionScanner;
 		// TODO 没有添加注解的话，应该有默认的扫描路径，就是项目的根目录，暂不处理，留作加强
 		if (zComponentScan == null || zComponentScan.value().equals(""))
@@ -66,14 +69,21 @@ public class ZApplicationEntrance {
 		else {
 			classPathBeanDefinitionScanner = new ClassPathBeanDefinitionScanner(zComponentScan.value());
 		}
-		// 需要加载到IoC容器的类都在这里了，那么下一步就是加载
-		List<Class<?>> list = classPathBeanDefinitionScanner.getAllAnnotatedClasses();
+		// 需要加载到IoC容器的类都在这里扫描，在这个简易容器中，Scanner的任务到此就结束了
 		// 剩下的工作交给工厂
 		// TODO 值得考虑的一件事就是，如何优雅地兼容所有定义bean的方式？
 		//      比如说我现在既有XML又有注解的Autowired，如何在一个接口中全部做到
-		//      接下来可能需要分支，比如我实例化了多个工厂，他们接下来会一起做一些事情？
-		BeanFactory beanFactory;
-		
+		//      接下来可能需要分支，比如我实例化了多这里了，那么下一步个工厂，他们接下来会一起做一些事情？
+		// 工厂的任务只是生成对象，不要做别的事，那么如何生成的任务就交给definition
+		toBeLoading = classPathBeanDefinitionScanner.getAllAnnotatedClasses();
+		readBeanDefinition();
+	}
+	
+	private BeanDefinitionReader beanDefinitionReader;
+	private void readBeanDefinition () {
+		beanDefinitionReader = new AnnotatedBeanDefinitionReader();
+		System.out.println(toBeLoading);
+		beanDefinitionReader.reading(toBeLoading);
 	}
 	
 }

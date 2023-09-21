@@ -1,5 +1,7 @@
 package com.lfw.ioc.context;
 
+import java.util.List;
+
 /*
  * @Author Zzs
  * @Description
@@ -7,5 +9,7 @@ package com.lfw.ioc.context;
  *
  */
 public interface BeanDefinitionReader {
+	
+	void reading (List<Class<?>> toBeLoading);
 
 }
