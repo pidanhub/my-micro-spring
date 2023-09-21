@@ -14,7 +14,11 @@ class AnnotatedBeanDefinitionReaderTest {
 	
 	@Test
 	void initializeFieldTest () {
-		new AnnotatedBeanDefinitionReader().reading(List.of(TestClass.class));
+		System.out.println(new AnnotatedBeanDefinitionReader().reading(List.of(TestClass.class)));
 	}
 	
+	@Test
+	void reading () {
+	
+	}
 }

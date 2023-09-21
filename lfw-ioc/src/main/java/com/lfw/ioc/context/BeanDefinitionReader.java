@@ -11,6 +11,6 @@ import java.util.List;
 @FunctionalInterface
 public interface BeanDefinitionReader {
 	
-	void reading (List<Class<?>> toBeReading);
+	List<BeanDefinition> reading (List<Class<?>> toBeReading);
 
 }

@@ -3,6 +3,7 @@ package com.lfw.ioc.entrance;
 import com.lfw.ioc.annotation.AnnotatedBeanDefinitionReader;
 import com.lfw.ioc.annotation.ZApplication;
 import com.lfw.ioc.annotation.ZComponentScan;
+import com.lfw.ioc.context.BeanDefinition;
 import com.lfw.ioc.context.BeanDefinitionReader;
 import com.lfw.ioc.context.ClassPathBeanDefinitionScanner;
 import com.lfw.ioc.exception.NotZApplicationAppException;
@@ -83,7 +84,7 @@ public class ZApplicationEntrance {
 	private void readBeanDefinition () {
 		beanDefinitionReader = new AnnotatedBeanDefinitionReader();
 //		System.out.println(toBeLoading);
-		beanDefinitionReader.reading(toBeLoading);
+		List<BeanDefinition> reading = beanDefinitionReader.reading(toBeLoading);
 	}
 	
 }
