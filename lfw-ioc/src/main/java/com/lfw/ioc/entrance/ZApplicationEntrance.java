@@ -82,7 +82,7 @@ public class ZApplicationEntrance {
 	private BeanDefinitionReader beanDefinitionReader;
 	private void readBeanDefinition () {
 		beanDefinitionReader = new AnnotatedBeanDefinitionReader();
-		System.out.println(toBeLoading);
+//		System.out.println(toBeLoading);
 		beanDefinitionReader.reading(toBeLoading);
 	}
 	

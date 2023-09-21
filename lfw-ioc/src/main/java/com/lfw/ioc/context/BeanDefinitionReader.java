@@ -4,12 +4,13 @@ import java.util.List;
 
 /*
  * @Author Zzs
- * @Description
+ * @Description 专注于读取bean中信息的函数式接口
  * @DateTime 2023/9/15 13:27
  *
  */
+@FunctionalInterface
 public interface BeanDefinitionReader {
 	
-	void reading (List<Class<?>> toBeLoading);
+	void reading (List<Class<?>> toBeReading);
 
 }
