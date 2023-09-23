@@ -12,9 +12,9 @@ import java.util.Map;
 @SuppressWarnings ("unused")
 public interface BeanDefinition {
 	
-	void setBeanName (String beanName);
+	BeanDefinition setBeanName (String beanName);
 	
-	void setClass (Class<?> aClass);
+	BeanDefinition setClass (Class<?> aClass);
 	
 	void addIntoDefinitionMap (String fieldName, Object value);
 	

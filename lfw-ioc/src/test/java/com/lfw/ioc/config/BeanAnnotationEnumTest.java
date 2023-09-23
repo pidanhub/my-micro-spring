@@ -3,8 +3,6 @@ package com.lfw.ioc.config;
 import com.lfw.ioc.annotation.ZService;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /*
  * @Author Zzs
  * @Description
@@ -16,7 +14,7 @@ class BeanAnnotationEnumTest {
 	@Test
 	void enumTest () {
 		
-		String type = "com.lfw.ioc.annotation.ZComponent";
+		String type = "com.lfw.ioc.annotation.annotation.ZComponent";
 		for (BeanAnnotationEnum beanAnnotationEnum : BeanAnnotationEnum.values())
 			if (beanAnnotationEnum.value.getName().equals(type))
 				System.out.println(beanAnnotationEnum.value);

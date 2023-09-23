@@ -4,7 +4,7 @@ import java.util.List;
 
 /*
  * @Author Zzs
- * @Description 专注于读取bean中信息的函数式接口
+ * @Description 专注于读取bean中信息的函数式接口，要读的信息有属性和方法(还没实现)
  * @DateTime 2023/9/15 13:27
  *
  */
@@ -12,5 +12,4 @@ import java.util.List;
 public interface BeanDefinitionReader {
 	
 	List<BeanDefinition> reading (List<Class<?>> toBeReading);
-
 }

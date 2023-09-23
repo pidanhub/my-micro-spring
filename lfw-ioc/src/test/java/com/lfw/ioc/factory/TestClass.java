@@ -1,5 +1,6 @@
 package com.lfw.ioc.factory;
 
+import com.lfw.ioc.annotation.ZAutowired;
 import com.lfw.ioc.annotation.ZValue;
 
 public class TestClass {
@@ -17,4 +18,6 @@ public class TestClass {
 	@ZValue ("a")
 	public char f6;
 	
+	@ZAutowired
+	public TestClass testClass;
 }

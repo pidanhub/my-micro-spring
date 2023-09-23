@@ -1,5 +1,6 @@
 package com.lfw.ioc.annotation;
 
+import com.lfw.ioc.context.AnnotatedBeanDefinitionReader;
 import com.lfw.ioc.factory.TestClass;
 import org.junit.jupiter.api.Test;
 

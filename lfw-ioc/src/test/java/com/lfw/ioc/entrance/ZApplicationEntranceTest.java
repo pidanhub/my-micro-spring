@@ -4,8 +4,6 @@ import com.lfw.ioc.annotation.ZApplication;
 import com.lfw.ioc.annotation.ZComponentScan;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /*
  * @Author Zzs
  * @Description

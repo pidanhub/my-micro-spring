@@ -8,7 +8,7 @@ import java.util.Map;
  * @Description
  * @DateTime 2023/9/15 13:33
  */
-@SuppressWarnings ("unused")
+//@SuppressWarnings ("unused")
 public class AnnotatedBeanDefinition implements BeanDefinition {
 	
 	protected final Map<String, Object> signedByValueMap = new HashMap<>();
@@ -21,13 +21,15 @@ public class AnnotatedBeanDefinition implements BeanDefinition {
 	protected final Map<String, Object> signedByAutowiredMap = new HashMap<>();
 	
 	@Override
-	public void setBeanName (String beanName) {
+	public BeanDefinition setBeanName (String beanName) {
 		this.beanName = beanName;
+		return this;
 	}
 	
 	@Override
-	public void setClass (Class<?> aClass) {
+	public BeanDefinition setClass (Class<?> aClass) {
 		this.aClass = aClass;
+		return this;
 	}
 	
 	public AnnotatedBeanDefinition () {

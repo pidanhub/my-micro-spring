@@ -1,13 +1,14 @@
 package com.lfw.ioc.entrance;
 
-import com.lfw.ioc.annotation.AnnotatedBeanDefinitionReader;
 import com.lfw.ioc.annotation.ZApplication;
 import com.lfw.ioc.annotation.ZComponentScan;
+import com.lfw.ioc.context.AnnotationApplicationContext;
 import com.lfw.ioc.context.BeanDefinition;
 import com.lfw.ioc.context.BeanDefinitionReader;
 import com.lfw.ioc.context.ClassPathBeanDefinitionScanner;
+import com.lfw.ioc.exception.NoSuchDefiniteWayException;
 import com.lfw.ioc.exception.NotZApplicationAppException;
-import com.lfw.ioc.factory.AnnotationApplicationContext;
+import com.lfw.ioc.factory.BeanDefinitionFactory;
 import com.lfw.ioc.factory.BeanFactory;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ import java.util.*;
  * @Description
  * @DateTime 2023/9/15 16:43
  */
-@SuppressWarnings({ "unused", "MismatchedQueryAndUpdateOfCollection", "FieldCanBeLocal" })
+@SuppressWarnings ({ "", "MismatchedQueryAndUpdateOfCollection", "FieldCanBeLocal" })
 public class ZApplicationEntrance {
 	
 	// TODO Q: 是否要将入口都放在这里？
@@ -28,9 +29,10 @@ public class ZApplicationEntrance {
 			new AnnotationApplicationContext()
 	};
 	
+	// 主函数处要标注的注解，这个作用只是一个标记
 	private static final Set<Class<?>> includeAnnotations = new HashSet<>(Arrays.asList(
-				ZApplication.class, ZComponentScan.class
-		));
+			ZApplication.class, ZComponentScan.class
+	));
 	
 	private static final Map<Class<?>, List<Annotation>> moduleAnnotationList = new HashMap<>();
 	public static void run (Class<?> starter, String... args) {
@@ -55,13 +57,14 @@ public class ZApplicationEntrance {
 			// 其他注解委托到Mybatis框架的ProxyFactory？？
 			// 确认了是框架托管的程序以后，按照扫描包规则进行扫描
 			doUploadContainer(starters[0]);
-		} catch (NotZApplicationAppException | IOException e) {
+		} catch (NotZApplicationAppException | IOException | NoSuchDefiniteWayException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	private List<Class<?>> toBeLoading;
-	private void doUploadContainer (Class<?> clazz) throws IOException {
+	
+	private void doUploadContainer (Class<?> clazz) throws NoSuchDefiniteWayException, IOException {
 		ZComponentScan zComponentScan = clazz.getAnnotation(ZComponentScan.class);
 		ClassPathBeanDefinitionScanner classPathBeanDefinitionScanner;
 		// TODO 没有添加注解的话，应该有默认的扫描路径，就是项目的根目录，暂不处理，留作加强
@@ -81,9 +84,13 @@ public class ZApplicationEntrance {
 	}
 	
 	private BeanDefinitionReader beanDefinitionReader;
-	private void readBeanDefinition () {
-		beanDefinitionReader = new AnnotatedBeanDefinitionReader();
-//		System.out.println(toBeLoading);
+	
+	private void readBeanDefinition () throws NoSuchDefiniteWayException {
+		/* TODO 默认方式是采用注解读，如果拓展的话，选择配置文件的方式，也可以使用XML方式
+		 *     在配置文件中查询是否修改了约定(约定大于配置原则)，如果是，则改为其他方式读取
+		 * PropertyDescriptor propertyDescriptor = new PropertyDescriptor(); // 用读yml或者properties的方式
+		 */
+		beanDefinitionReader = BeanDefinitionFactory.getBeanDefinitionReader(BeanDefinitionFactory.WAY_ANNOTATION);
 		List<BeanDefinition> reading = beanDefinitionReader.reading(toBeLoading);
 	}
 	

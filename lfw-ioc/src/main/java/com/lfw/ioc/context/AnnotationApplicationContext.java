@@ -1,4 +1,6 @@
-package com.lfw.ioc.factory;
+package com.lfw.ioc.context;
+
+import com.lfw.ioc.factory.BeanFactory;
 
 /*
  * @Author Zzs
@@ -6,7 +8,7 @@ package com.lfw.ioc.factory;
  * @DateTime 2023/9/15 13:51
  *
  */
-@SuppressWarnings("unused")
+@SuppressWarnings ("unused")
 public class AnnotationApplicationContext implements BeanFactory {
 	
 	
