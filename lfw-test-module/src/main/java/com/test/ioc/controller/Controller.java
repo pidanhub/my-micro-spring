@@ -34,4 +34,8 @@ public class Controller {
 				",\n dropService=" + dropService +
 				'}';
 	}
+	
+	public String serve () {
+		return service.serve();
+	}
 }

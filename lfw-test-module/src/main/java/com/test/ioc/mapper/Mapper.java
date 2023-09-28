@@ -6,4 +6,5 @@ package com.test.ioc.mapper;
  * @DateTime 2023/9/28 0:22
  */
 public interface Mapper {
+	String serve ();
 }

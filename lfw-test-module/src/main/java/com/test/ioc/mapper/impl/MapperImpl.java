@@ -21,4 +21,9 @@ public class MapperImpl implements Mapper {
 				"aFloat=" + aFloat +
 				'}';
 	}
+	
+	@Override
+	public String serve () {
+		return "Hello IoC!";
+	}
 }

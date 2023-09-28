@@ -2,18 +2,35 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xmlns="http://maven.apache.org/POM/4.0.0"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<artifactId>lfw</artifactId>
-		<groupId>com.lfw</groupId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
-	<modelVersion>4.0.0</modelVersion>
 	
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.lfw.test.module</groupId>
 	<artifactId>lfw-test-module</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.lfw.ioc</groupId>
+			<artifactId>lfw-ioc</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/ioc.jar</systemPath> <!-- 指定 JAR 包的路径 -->
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+		</dependency>
+	</dependencies>
 	
 	<properties>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
 	</properties>
-
+	<build>
+		<finalName>lfw-test-module</finalName>
+	</build>
+	<packaging>war</packaging>
 </project>

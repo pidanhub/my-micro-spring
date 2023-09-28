@@ -26,4 +26,7 @@ public class Service {
 				'}';
 	}
 	
+	public String serve () {
+		return mapper.serve();
+	}
 }
