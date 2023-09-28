@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -54,7 +53,7 @@ public class ClassPathBeanDefinitionScanner {
 		this.beanClasses = beanClasses;
 	}
 	
-	public List<Class<?>> addAllAnnotatedClasses () throws IOException {
+	public List<Class<?>> getAllAnnotatedClasses () throws IOException {
 		this.recursivelyScan();
 		List<Class<?>> values = BeanAnnotationEnum.getValues();
 		List<Class<?>> needAddClasses = new ArrayList<>();

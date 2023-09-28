@@ -2,6 +2,7 @@ package com.lfw.ioc.config;
 
 import com.lfw.ioc.annotation.ZComponent;
 import com.lfw.ioc.annotation.ZController;
+import com.lfw.ioc.annotation.ZMapper;
 import com.lfw.ioc.annotation.ZService;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public enum BeanAnnotationEnum {
 	Z_CONTROLLER(ZController.class),
 	Z_COMPONENT(ZComponent.class),
 	Z_SERVICE(ZService.class),
+	Z_MAPPER(ZMapper.class)
 		;
 	
 	public final Class<?> value;
