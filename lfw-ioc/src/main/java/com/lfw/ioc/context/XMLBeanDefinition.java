@@ -10,7 +10,7 @@ import java.util.Map;
 public abstract class XMLBeanDefinition implements BeanDefinition {
 	
 	@Override
-	public Map<String, Object> getMap () {
+	public Map<String, Object> getMap (String which) {
 		return null;
 	}
 }

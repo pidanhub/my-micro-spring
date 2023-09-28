@@ -1,5 +1,9 @@
 package com.lfw.ioc.factory;
 
+import com.lfw.ioc.context.BeanDefinition;
+
+import java.util.Map;
+
 /*
  * @Author Zzs
  * @Description
@@ -8,5 +12,10 @@ package com.lfw.ioc.factory;
 public interface BeanFactory {
 	
 	String FACTORY_PREFIX = "&";
-	Object getBean (Class<?> beanName);
+	
+	Object getBean (Class<?> bean);
+	
+	Object getBean (String beanName);
+	
+	void loading (Map<Class<?>, BeanDefinition> beanDefinitionList) throws Exception;
 }

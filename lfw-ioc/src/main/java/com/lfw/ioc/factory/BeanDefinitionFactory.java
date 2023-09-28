@@ -1,9 +1,6 @@
 package com.lfw.ioc.factory;
 
-import com.lfw.ioc.context.AnnotatedBeanDefinition;
-import com.lfw.ioc.context.AnnotatedBeanDefinitionReader;
-import com.lfw.ioc.context.BeanDefinition;
-import com.lfw.ioc.context.BeanDefinitionReader;
+import com.lfw.ioc.context.*;
 import com.lfw.ioc.exception.NoSuchDefiniteWayException;
 
 /*
@@ -43,6 +40,19 @@ public class BeanDefinitionFactory {
 		switch (way) {
 			case WAY_ANNOTATION:
 				return new AnnotatedBeanDefinitionReader();
+			case WAY_XML:
+				// Not implement yet.
+//				return new XMLBeanDefinitionHandler();
+			default:
+				throw new NoSuchDefiniteWayException(NoSuchDefiniteWayExceptionMessage);
+		}
+	}
+	
+	public static BeanFactory getBeanFactory (String way) throws NoSuchDefiniteWayException {
+		setWay(way);
+		switch (way) {
+			case WAY_ANNOTATION:
+				return new AnnotationApplicationContext();
 			case WAY_XML:
 				// Not implement yet.
 //				return new XMLBeanDefinitionHandler();

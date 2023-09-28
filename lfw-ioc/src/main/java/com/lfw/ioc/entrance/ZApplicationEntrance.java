@@ -20,7 +20,7 @@ import java.util.*;
  * @Description
  * @DateTime 2023/9/15 16:43
  */
-@SuppressWarnings ({ "", "MismatchedQueryAndUpdateOfCollection", "FieldCanBeLocal" })
+@SuppressWarnings ({ "unused", "MismatchedQueryAndUpdateOfCollection", "FieldCanBeLocal" })
 public class ZApplicationEntrance {
 	
 	// TODO Q: 是否要将入口都放在这里？
@@ -64,10 +64,15 @@ public class ZApplicationEntrance {
 	
 	private List<Class<?>> toBeLoading;
 	
+	private BeanFactory beanFactory;
+	
+	private BeanDefinitionReader beanDefinitionReader;
+	private Map<Class<?>, BeanDefinition> reading;
+	
 	private void doUploadContainer (Class<?> clazz) throws NoSuchDefiniteWayException, IOException {
 		ZComponentScan zComponentScan = clazz.getAnnotation(ZComponentScan.class);
 		ClassPathBeanDefinitionScanner classPathBeanDefinitionScanner;
-		// TODO 没有添加注解的话，应该有默认的扫描路径，就是项目的根目录，暂不处理，留作加强
+		// TODO 没有添加注解的话，应该有默认的扫描路径，就是项目的根目录，暂不处理
 		if (zComponentScan == null || zComponentScan.value().equals(""))
 			classPathBeanDefinitionScanner = new ClassPathBeanDefinitionScanner();
 		else {
@@ -83,15 +88,28 @@ public class ZApplicationEntrance {
 		readBeanDefinition();
 	}
 	
-	private BeanDefinitionReader beanDefinitionReader;
-	
 	private void readBeanDefinition () throws NoSuchDefiniteWayException {
 		/* TODO 默认方式是采用注解读，如果拓展的话，选择配置文件的方式，也可以使用XML方式
 		 *     在配置文件中查询是否修改了约定(约定大于配置原则)，如果是，则改为其他方式读取
 		 * PropertyDescriptor propertyDescriptor = new PropertyDescriptor(); // 用读yml或者properties的方式
 		 */
 		beanDefinitionReader = BeanDefinitionFactory.getBeanDefinitionReader(BeanDefinitionFactory.WAY_ANNOTATION);
-		List<BeanDefinition> reading = beanDefinitionReader.reading(toBeLoading);
+		Map<Class<?>, BeanDefinition> reading = beanDefinitionReader.reading(toBeLoading);
+		loadObjects(reading);
+	}
+	
+	private void loadObjects (Map<Class<?>, BeanDefinition> reading) throws NoSuchDefiniteWayException {
+		this.reading = reading;
+		beanFactory = BeanDefinitionFactory.getBeanFactory(BeanDefinitionFactory.WAY_ANNOTATION);
+		// 将所有需要加载的类加载到IoC中去了以后，任务就基本完成了
+		// 用户在使用的时候，则根据对应的方式来加载对应的类
+		// TODO 如何处理多种方式都存在的控制反转,,好像已经在多个地方标识这个问题了,,
+		// TODO 是否保存BeanDefinitionMap以备他用，或者说它是否还有别的用处？
+		try {
+			beanFactory.loading(reading);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -8,16 +8,13 @@ import java.util.Map;
  * @Description
  * @DateTime 2023/9/15 13:33
  */
-//@SuppressWarnings ("unused")
+@SuppressWarnings ("unused")
 public class AnnotatedBeanDefinition implements BeanDefinition {
 	
-	protected final Map<String, Object> signedByValueMap = new HashMap<>();
-	protected final static String Z_VALUE = "@ZValue";
-	
 	protected String beanName;
-	protected final static String Z_AUTOWIRED = "@ZAutowired";
-	
 	protected Class<?> aClass;
+	
+	protected final Map<String, Object> signedByValueMap = new HashMap<>();
 	protected final Map<String, Object> signedByAutowiredMap = new HashMap<>();
 	
 	@Override
@@ -51,8 +48,8 @@ public class AnnotatedBeanDefinition implements BeanDefinition {
 	}
 	
 	// how?
-	public void addingAutowiredMap (String fieldName) {
-		signedByAutowiredMap.put(fieldName, null);
+	public void addingAutowiredMap (String fieldName, Object value) {
+		signedByAutowiredMap.put(fieldName, value);
 	}
 	
 	// 在IoC初始化bean的时候的关键信息，这是一个bean的所有内容
@@ -66,15 +63,22 @@ public class AnnotatedBeanDefinition implements BeanDefinition {
 	
 	@Override
 	public void addIntoDefinitionMap (String fieldName, Object value) {
-		if (value == null)
-			addingAutowiredMap(fieldName);
+		if (value instanceof Class)
+			addingAutowiredMap(fieldName, value);
 		else
 			addingZValueMap(fieldName, value);
 	}
 	
 	@Override
-	public Map<String, Object> getMap () {
-		return null;
+	public Map<String, Object> getMap (String which) {
+		switch (which) {
+			case VALUE:
+				return getSignedByValueMap();
+			case AUTOWIRED:
+				return getSignedByAutowiredMap();
+			default:
+				return null;
+		}
 	}
 	
 	@Override
@@ -85,5 +89,15 @@ public class AnnotatedBeanDefinition implements BeanDefinition {
 				", beanName='" + beanName + '\'' +
 				", aClass=" + aClass +
 				'}';
+	}
+	
+	@Override
+	public String getBeanName () {
+		return beanName;
+	}
+	
+	@Override
+	public Class<?> getBeanClass () {
+		return aClass;
 	}
 }

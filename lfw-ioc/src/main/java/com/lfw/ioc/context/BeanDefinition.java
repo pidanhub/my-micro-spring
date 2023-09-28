@@ -12,12 +12,18 @@ import java.util.Map;
 @SuppressWarnings ("unused")
 public interface BeanDefinition {
 	
+	String VALUE = "@ZValue";
+	String AUTOWIRED = "@ZAutowired";
+	
 	BeanDefinition setBeanName (String beanName);
 	
 	BeanDefinition setClass (Class<?> aClass);
 	
 	void addIntoDefinitionMap (String fieldName, Object value);
 	
-	Map<String, Object> getMap ();
+	Map<String, Object> getMap (String which);
 	
+	String getBeanName ();
+	
+	Class<?> getBeanClass ();
 }

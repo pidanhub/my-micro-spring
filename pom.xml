@@ -12,6 +12,7 @@
     <modules>
         <module>lfw-ioc</module>
         <module>lfw-web</module>
+        <module>lfw-test-module</module>
     </modules>
     
     <dependencies>

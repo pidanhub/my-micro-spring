@@ -1,6 +1,7 @@
 package com.lfw.ioc.context;
 
 import java.util.List;
+import java.util.Map;
 
 /*
  * @Author Zzs
@@ -11,5 +12,5 @@ import java.util.List;
 @FunctionalInterface
 public interface BeanDefinitionReader {
 	
-	List<BeanDefinition> reading (List<Class<?>> toBeReading);
+	Map<Class<?>, BeanDefinition> reading (List<Class<?>> toBeReading);
 }
