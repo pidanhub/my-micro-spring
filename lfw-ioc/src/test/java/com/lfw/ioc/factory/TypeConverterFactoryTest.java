@@ -15,11 +15,11 @@ class TypeConverterFactoryTest {
 	void convertStringToTypeTest () {
 		Class<?> aClass = TestClass.class;
 		Field[] declaredFields = aClass.getDeclaredFields();
-		System.out.println(TypeConverterFromValueFactory.convertStringToType("l", declaredFields[0].getType()));
-		System.out.println(TypeConverterFromValueFactory.convertStringToType("1.1", declaredFields[1].getType()));
-		System.out.println(TypeConverterFromValueFactory.convertStringToType("false", declaredFields[2].getType()));
+		System.out.println(TypeConverterFromValueFactory.convertStringToType("l", declaredFields[0].getType()).getClass());
+		System.out.println(TypeConverterFromValueFactory.convertStringToType("1.1", declaredFields[1].getType()).getClass());
+		System.out.println(TypeConverterFromValueFactory.convertStringToType("false", declaredFields[2].getType()).getClass());
 		System.out.println(TypeConverterFromValueFactory.convertStringToType("444876844", declaredFields[3].getType()).getClass());
-		System.out.println(TypeConverterFromValueFactory.convertStringToType("11", declaredFields[4].getType()));
-		System.out.println(TypeConverterFromValueFactory.convertStringToType("d", declaredFields[5].getType()));
+		System.out.println(TypeConverterFromValueFactory.convertStringToType("11", declaredFields[4].getType()).getClass());
+		System.out.println(TypeConverterFromValueFactory.convertStringToType("d", declaredFields[5].getType()).getClass());
 	}
 }
